@@ -1,0 +1,28 @@
+{
+  "name": "bakery",
+  "version": "0.0.1",
+  "description": "Manages status cake monitoring endpoints",
+  "main": "handler.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:samjeffress/bakery.git"
+  },
+  "keywords": [
+    "status",
+    "cake",
+    "baking",
+    "cookies",
+    "yum"
+  ],
+  "author": "samjeffress@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.30.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
+    "statuscake": "^0.1.3"
+  }
+}
