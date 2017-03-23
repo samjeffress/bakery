@@ -1,7 +1,7 @@
 var requestPromise = require('request-promise');
 
-const apiKey = "cats";
-const username = "usermcuserface";
+const apiKey = process.env.STATUS_CAKE_API_KEY;
+const username = process.env.STATUS_CAKE_USER;
 
 function create(stackName,endpoint) {
 	var options = {
