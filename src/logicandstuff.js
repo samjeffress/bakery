@@ -1,11 +1,11 @@
-const monitoring = require('./monitoring');
-const dataStore = require('./dataStore');
+const monitoring = require('./monitoring.js');
+const dataStore = require('./dataStore.js');
 
 function createOrUpdate(stackName, endpoint) {
 	return new Promise((resolve, reject) => {
 		dataStore.doesEndpointExist(stackName, endpoint)
 		.then(response => {
-			if (!response.record)
+			if (response.record)
 				return resolve({status: "Endpoint already monitored"});
 
 			monitoring.create(stackName,endpoint)

@@ -14,7 +14,13 @@ function createParams(stackName, endpoint) {
 
 function getItem(stackName, endpoint) {
   return new Promise((resolve, reject) => {
-    var params = createParams(stackName, endpoint); 
+    var params = {
+      TableName: tableName,
+      Key: {
+        "StackName": {S: stackName},
+        "Endpoint": {S: endpoint}
+      }
+    };
     dynamo.getItem(params, (err, data) => {
       if (err) {
         console.log(err);
@@ -28,9 +34,11 @@ function getItem(stackName, endpoint) {
   });
 }
 
-function putItem(stackName, endpoint) {
+function putItem(stackName, endpoint, monitoringId) {
   return new Promise((resolve, reject) => {
     var params = createParams(stackName, endpoint); 
+    console.log(monitoringId);
+    params.Item.MonitoringId = {N: `${monitoringId}`};
     dynamo.putItem(params, (err, data) => {
       if (err) {
         console.log(err);
@@ -47,15 +55,15 @@ function putItem(stackName, endpoint) {
 const doesEndpointExist = function(stackName, endpoint) {
   return new Promise((resolve, reject) => {
     getItem(stackName, endpoint)
-      .then(data => resolve({record: data.Item})
+      .then(data => resolve({record: data.Item}))
       .catch(err => reject(err));
     })
-  });
-}
+};
 
-var recordEndpoint = function(stackName, endpoint) {
+
+var recordEndpoint = function(stackName, endpoint, monitoringId) {
   console.log('creating records for ', {stackName, endpoint});
-  return putItem(stackName, endpoint);
+  return putItem(stackName, endpoint, monitoringId);
 }
 
 module.exports = {doesEndpointExist, recordEndpoint};

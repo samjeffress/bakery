@@ -15,18 +15,20 @@ function create(stackName,endpoint) {
 	  },
 	  headers: {
 	  	'API': apiKey,
-	  	'Username': username
-	    'content-type': 'application/x-www-form-urlencoded'  // Set automatically
+	  	'Username': username,
+	    'content-type': 'application/x-www-form-urlencoded',  // Set automatically
+	    'Accept': 'application/json'
 		}
 	}
 
 	return requestPromise(options)
-		.then(body => {
+		.then(jsonBody => {
+			const body = JSON.parse(jsonBody);
 			if (body.Success)
 				return Promise.resolve(body.InsertID);
 			return Promise.reject(body)
 		})
-		.catch(err => reject(err));
+		.catch(err => Promise.reject(err));
 }
 
 module.exports = {create};
