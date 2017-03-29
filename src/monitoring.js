@@ -40,7 +40,6 @@ function create(stackName,endpoint,contactGroupId,tags) {
 
 
 function getContactGroupId(contactGroupName){
-  console.log(contactGroupName);
   if (!contactGroupName)
     return Promise.resolve(0);
 
@@ -59,7 +58,7 @@ function getContactGroupId(contactGroupName){
       const body = JSON.parse(jsonBody);
       const foundContactGroup = R.find(R.propEq('GroupName', contactGroupName))(body);
       if (foundContactGroup)
-        return Promise.resolve(foundContactGroup.ContactId);
+        return Promise.resolve(foundContactGroup.ContactID);
       return Promise.reject({error: `No contact group found for ${contactGroupName}`})
     })
     .catch(err => Promise.reject(err));

@@ -15,12 +15,10 @@ module.exports.createOrUpdate = (event, context, callback) => {
   var body = JSON.parse(event.body);
   logicAndStuff.createOrUpdate(body.stackName, body.endpoint)
     .then(success => {
-      console.log("wrote something to dynamo");
       const response = generateResponse(success, null);
       callback(null, response);
     })
     .catch(error => {
-      console.log('catching an error...');
       console.log(error);
       const response = generateResponse(null, error);
       callback(null, response);

@@ -43,4 +43,32 @@ describe("Logic tests", () => {
       })
       .catch(error => done(error));
   })
+
+  it("New item is created with contact group or tags", (done) => {
+    AWS.restore();
+    AWS.mock('DynamoDB', 'getItem', function (params, callback){
+      callback(null, {});
+    });
+
+    AWS.mock('DynamoDB', 'putItem', function (params, callback){
+      callback(null, {});
+    });
+
+    const contactIdFound = 444444;
+    nock('https://app.statuscake.com/API').get('/ContactGroups/').reply(200, [
+      {"GroupName": "frank", "ContactID": 222}, 
+      {"GroupName": contactGroupName, "ContactID": contactIdFound}
+    ]);
+    nock('https://app.statuscake.com/API/Tests').put('/Update', (body) => {
+      return body.ContactGroup === `${contactIdFound}` 
+      && body.Tags === tags;
+    }).reply(200, {Success: true, InsertID: 123});
+
+    logicandstuff.createOrUpdate(stackName, endpoint, contactGroupName, tags)
+      .then(response => {
+        assert.equal(response.status, "Endpoint created");
+        done();
+      })
+      .catch(error => done(error));
+  })
 });
