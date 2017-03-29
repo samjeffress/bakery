@@ -5,8 +5,8 @@ provider:
   runtime: nodejs4.3
   region: ap-southeast-2
   environment:
-    STATUS_CAKE_API_KEY: 'yourstatuscakekey'
-    STATUS_CAKE_USER: 'yourstatuscakeusername'
+    STATUS_CAKE_API_KEY: ${env:STATUS_CAKE_API_KEY}
+    STATUS_CAKE_USER: ${env:STATUS_CAKE_USER}
 
 functions:
   post:

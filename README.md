@@ -4,7 +4,9 @@ Serverless function to manage your [Status Cake](https://www.statuscake.com/) te
 
 ## How do I run this?
 * Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git).
-* Setup your Status Cake variables in the serverless.yml
+* Setup your Status Cake variables in your environment variables:
+  - `STATUS_CAKE_API_KEY`
+  - `STATUS_CAKE_USER`
 * Make sure your AWS Credentials are setup - [serverless aws credentials](https://serverless.com/framework/docs/providers/aws/guide/credentials/) 
 * `sls deploy` 
 
