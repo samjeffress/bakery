@@ -13,7 +13,8 @@ function generateResponse(success, error) {
 
 module.exports.createOrUpdate = (event, context, callback) => {
   var body = JSON.parse(event.body);
-  logicAndStuff.createOrUpdate(body.stackName, body.endpoint)
+  console.log(body)
+  logicAndStuff.createOrUpdate(body.stackName, body.endpoint, body.contactGroup, body.tags)
     .then(success => {
       const response = generateResponse(success, null);
       callback(null, response);
