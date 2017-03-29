@@ -1,5 +1,5 @@
 var AWS = require("aws-sdk");
-var dynamo = new AWS.DynamoDB();
+
 var tableName = "bakery";
 
 function createParams(stackName, endpoint) {
@@ -13,6 +13,7 @@ function createParams(stackName, endpoint) {
 }
 
 function getItem(stackName, endpoint) {
+  var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
     var params = {
       TableName: tableName,
@@ -26,15 +27,14 @@ function getItem(stackName, endpoint) {
         console.log(err);
         return reject(err);
       }
-      if (data) {
-        console.log('retrieved', data);
-        return resolve(data);
-      }
+      console.log('retrieved', data);
+      return resolve(data); 
     })
   });
 }
 
 function putItem(stackName, endpoint, monitoringId) {
+  var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
     var params = createParams(stackName, endpoint); 
     console.log(monitoringId);

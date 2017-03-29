@@ -4,7 +4,7 @@
   "description": "Manages status cake monitoring endpoints",
   "main": "handler.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha --recursive src/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,13 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.30.0",
+    "ramda": "^0.23.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.0"
+  },
+  "devDependencies": {
+    "aws-sdk-mock": "^1.6.1",
+    "mocha": "^3.2.0",
+    "nock": "^9.0.10"
   }
 }
