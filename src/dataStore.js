@@ -33,12 +33,14 @@ function getItem(stackName, endpoint) {
   });
 }
 
-function putItem(stackName, endpoint, monitoringId) {
+function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGroupId) {
   var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
     var params = createParams(stackName, endpoint); 
     console.log(monitoringId);
     params.Item.MonitoringId = {N: `${monitoringId}`};
+    params.Item.ContactGroupName = {S: contactGroupName};
+    params.Item.ContactGroupId = {S: contactGroupId};
     dynamo.putItem(params, (err, data) => {
       if (err) {
         console.log(err);

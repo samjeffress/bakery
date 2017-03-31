@@ -19,10 +19,20 @@ function createOrUpdate(stackName, endpoint, contactGroupName, tags) {
           })
           .catch(e => console.log(e))
       } else {
+        let foundContactGroupId = 0;
         monitoring
           .getContactGroupId(contactGroupName)
-          .then(contactGroupId => monitoring.create(stackName,endpoint, contactGroupId, tags))
-          .then(endpointId => dataStore.recordEndpoint(stackName, endpoint, endpointId))
+          .then(contactGroupId => {
+            foundContactGroupId = contactGroupId;
+            return monitoring.create(stackName,endpoint, contactGroupId, tags)
+          })
+          .then(endpointId => dataStore.recordEndpoint(
+            stackName, 
+            endpoint, 
+            endpointId,
+            contactGroupName,
+            foundContactGroupId
+          ))
           .then(() => resolve({status: "Endpoint created"}))
           .catch(innerError => reject(innerError))
       }
