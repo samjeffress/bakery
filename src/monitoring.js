@@ -68,4 +68,28 @@ function getContactGroupId(contactGroupName){
     .catch(err => Promise.reject(err));
 }
 
-module.exports = {create, getContactGroupId};
+function confirmEndpointIsStillMonitored(recordedEndpoint){
+  var options = {
+    method: 'GET',
+    uri: `https://app.statuscake.com/API/Tests/Details/?TestID=${recordedEndpoint.MonitoringId}`,
+    headers: {
+      'API': apiKey,
+      'Username': username,
+      'Accept': 'application/json'
+    }
+  }
+
+  return requestPromise(options)
+    .then(jsonBody => {
+      const body = JSON.parse(jsonBody);
+      const response = 
+        body.WebsiteName === recordedEndpoint.StackName &&
+        body.WebsiteURL === recordedEndpoint.Endpoint &&
+        body.ContactGroup === recordedEndpoint.ContactGroupName &&
+        body.ContactID === recordedEndpoint.ContactGroupId; 
+      return Promise.resolve(response);
+    })
+    .catch(err => Promise.reject(err));
+}
+
+module.exports = {create, getContactGroupId, confirmEndpointIsStillMonitored};

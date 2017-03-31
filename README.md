@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.org/samjeffress/bakery.svg?branch=master)](https://travis-ci.org/samjeffress/bakery)
 # Bakery
-
 Serverless function to manage your [Status Cake](https://www.statuscake.com/) tests. 
+
+## Why?
+Because Status Cake's API isn't idempotent (it'll keep creating new tests for the same endpoint), so Bakery keeps track of what you have created and can update tests too.
 
 ## How do I run this?
 * Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git) or `sls install -u https://github.com/samjeffress/bakery`

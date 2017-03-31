@@ -11,9 +11,27 @@ const contactGroupName = 'contactGroupName';
 const tags = "tags,tags2";
 
 describe("Logic tests", () => {
-  it("Already created item doesn't recreate", (done) => {
+  it("Already created confirms still exists", (done) => {
+    const testId = 123;
+    const storedData = {
+      MonitoringId: testId, 
+      StackName: 'ohyeah', 
+      Endpoint: 'endpoint',
+      ContactGroupName: contactGroupName,
+      ContactGroupId: 888888
+    };
     AWS.mock('DynamoDB', 'getItem', function (params, callback){
-      callback(null, {Item: {things: 'ohyeah'}});
+      callback(null, {Item: storedData});
+    });
+
+    nock('https://app.statuscake.com/API').get(`/Tests/Details/?TestID=${testId}`).reply(200, {
+      "TestID": testId,
+      "TestType": "HTTP",
+      "WebsiteName": storedData.StackName, 
+      "WebsiteURL": storedData.Endpoint,
+      "ContactGroup": contactGroupName,
+      "ContactID": storedData.ContactGroupId, 
+      "DoNotFind": false
     });
 
     logicandstuff.createOrUpdate(stackName, endpoint, contactGroupName, tags)
