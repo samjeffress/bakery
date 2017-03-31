@@ -4,7 +4,7 @@
 Serverless function to manage your [Status Cake](https://www.statuscake.com/) tests. 
 
 ## How do I run this?
-* Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git) or `sls 
+* Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git) or `sls install -u https://github.com/samjeffress/bakery`
 * Setup your Status Cake variables in your environment variables:
   - `STATUS_CAKE_API_KEY`
   - `STATUS_CAKE_USER`
