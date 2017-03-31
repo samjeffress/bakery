@@ -1,9 +1,10 @@
+[![Build Status](https://travis-ci.org/samjeffress/bakery.svg?branch=master)](https://travis-ci.org/samjeffress/bakery)
 # Bakery
 
 Serverless function to manage your [Status Cake](https://www.statuscake.com/) tests. 
 
 ## How do I run this?
-* Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git).
+* Clone the repo [git@github.com:samjeffress/bakery.git](git@github.com:samjeffress/bakery.git) or `sls 
 * Setup your Status Cake variables in your environment variables:
   - `STATUS_CAKE_API_KEY`
   - `STATUS_CAKE_USER`
