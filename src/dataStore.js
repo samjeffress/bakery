@@ -9,8 +9,8 @@ function getItem(stackName, endpoint) {
     var params = {
       TableName: tableName,
       Key: {
-        "StackName": {S: stackName},
-        "Endpoint": {S: endpoint}
+        "stackName": {S: stackName},
+        "endpoint": {S: endpoint}
       }
     };
     dynamo.getItem(params, (err, data) => {
@@ -28,11 +28,11 @@ function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGro
   var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
     const data = {
-      StackName: stackName, 
-      Endpoint: endpoint,
-      MonitoringId: monitoringId, 
-      ContactGroupName: contactGroupName, 
-      ContactGroupId: contactGroupId
+      stackName, 
+      endpoint,
+      monitoringId, 
+      contactGroupName, 
+      contactGroupId
     }
     console.log(monitoringId);
     const params = {

@@ -21,4 +21,11 @@ You probably want to add an api key to your API Gateway service.
 To add a new check:
 
 	POST to /statuscheck
-	{"stackName":"cats", "endpoint":"https://google.com?cats"}
+```  
+{
+  "stackName":"cats", 
+  "endpoint":"https://google.com?cats"
+  "contactGroup":"contact group to be alerted", ## Optional
+  "tags":"list,of,tags,to,put,onyour,alert" ## Optional
+}
+```

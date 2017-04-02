@@ -21,14 +21,14 @@ resources:
       Properties:
         TableName: bakery
         AttributeDefinitions:
-          - AttributeName: StackName
+          - AttributeName: stackName
             AttributeType: S
-          - AttributeName: Endpoint
+          - AttributeName: endpoint
             AttributeType: S
         KeySchema:
-          - AttributeName: StackName
+          - AttributeName: stackName
             KeyType: HASH
-          - AttributeName: Endpoint
+          - AttributeName: endpoint
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1

@@ -1,6 +1,6 @@
 {
   "name": "bakery",
-  "version": "0.0.4",
+  "version": "1.0.0-preview001",
   "description": "Manages status cake monitoring endpoints",
   "main": "handler.js",
   "scripts": {

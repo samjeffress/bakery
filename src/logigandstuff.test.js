@@ -14,11 +14,11 @@ describe("Logic tests", () => {
   it("Already created confirms still exists", (done) => {
     const testId = 123;
     const storedData = {
-      MonitoringId: testId, 
-      StackName: 'ohyeah', 
-      Endpoint: 'endpoint',
-      ContactGroupName: contactGroupName,
-      ContactGroupId: 888888
+      monitoringId: testId, 
+      stackName: 'ohyeah', 
+      endpoint: 'endpoint',
+      contactGroupName,
+      contactGroupId: 888888
     };
     AWS.mock('DynamoDB', 'getItem', function (params, callback){
       callback(null, {Item: storedData});
@@ -27,10 +27,10 @@ describe("Logic tests", () => {
     nock('https://app.statuscake.com/API').get(`/Tests/Details/?TestID=${testId}`).reply(200, {
       "TestID": testId,
       "TestType": "HTTP",
-      "WebsiteName": storedData.StackName, 
-      "WebsiteURL": storedData.Endpoint,
+      "WebsiteName": storedData.stackName, 
+      "WebsiteURL": storedData.endpoint,
       "ContactGroup": contactGroupName,
-      "ContactID": storedData.ContactGroupId, 
+      "ContactID": storedData.contactGroupId, 
       "DoNotFind": false
     });
 
