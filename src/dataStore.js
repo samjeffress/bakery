@@ -1,16 +1,7 @@
 var AWS = require("aws-sdk");
+var attr = require('dynamodb-data-types').AttributeValue;
 
 var tableName = "bakery";
-
-function createParams(stackName, endpoint) {
-  return {
-    TableName: tableName,
-    Item: {
-      "StackName": {S: stackName},
-      "Endpoint": {S: endpoint}
-    }
-  };
-}
 
 function getItem(stackName, endpoint) {
   var dynamo = new AWS.DynamoDB();
@@ -27,7 +18,7 @@ function getItem(stackName, endpoint) {
         console.log(err);
         return reject(err);
       }
-      console.log('retrieved', data);
+      console.log('data', data)
       return resolve(data); 
     })
   });
@@ -36,11 +27,18 @@ function getItem(stackName, endpoint) {
 function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGroupId) {
   var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
-    var params = createParams(stackName, endpoint); 
+    const data = {
+      StackName: stackName, 
+      Endpoint: endpoint,
+      MonitoringId: monitoringId, 
+      ContactGroupName: contactGroupName, 
+      ContactGroupId: contactGroupId
+    }
     console.log(monitoringId);
-    params.Item.MonitoringId = {N: `${monitoringId}`};
-    params.Item.ContactGroupName = {S: contactGroupName};
-    params.Item.ContactGroupId = {S: contactGroupId};
+    const params = {
+      TableName: tableName,
+      Item: attr.wrap(data)
+    }
     dynamo.putItem(params, (err, data) => {
       if (err) {
         console.log(err);

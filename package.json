@@ -21,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.30.0",
+    "dynamodb-data-types": "^3.0.0",
     "ramda": "^0.23.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.0"
