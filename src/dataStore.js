@@ -24,7 +24,7 @@ function getItem(stackName, endpoint) {
   });
 }
 
-function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGroupId) {
+function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGroupId, tags) {
   var dynamo = new AWS.DynamoDB();
   return new Promise((resolve, reject) => {
     const data = {
@@ -32,7 +32,8 @@ function putItem(stackName, endpoint, monitoringId, contactGroupName, contactGro
       endpoint,
       monitoringId, 
       contactGroupName, 
-      contactGroupId
+      contactGroupId,
+      tags
     }
     console.log(monitoringId);
     const params = {
@@ -61,9 +62,9 @@ const doesEndpointExist = function(stackName, endpoint) {
 };
 
 
-var recordEndpoint = function(stackName, endpoint, monitoringId) {
+var recordEndpoint = function(stackName, endpoint, monitoringId, contactGroupName, contactGroupId, tags) {
   console.log('creating records for ', {stackName, endpoint});
-  return putItem(stackName, endpoint, monitoringId);
+  return putItem(stackName, endpoint, monitoringId, contactGroupName, contactGroupId, tags);
 }
 
 module.exports = {doesEndpointExist, recordEndpoint};

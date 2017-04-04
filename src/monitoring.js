@@ -4,7 +4,7 @@ var R = require('ramda');
 const apiKey = process.env.STATUS_CAKE_API_KEY || 'apiKey';
 const username = process.env.STATUS_CAKE_USER || 'username';
 
-function create(stackName,endpoint,contactGroupId,tags) {
+function createOrUpdate(stackName,endpoint,contactGroupId,tags,statusCakeId) {
   var options = {
     method: 'PUT',
     uri: 'https://app.statuscake.com/API/Tests/Update',
@@ -14,7 +14,7 @@ function create(stackName,endpoint,contactGroupId,tags) {
       CheckRate: 30,
       TestType: 'HTTP',
       ContactGroup: contactGroupId,
-      Tags: tags
+      TestTags: tags
     },
     headers: {
       'API': apiKey,
@@ -23,6 +23,9 @@ function create(stackName,endpoint,contactGroupId,tags) {
       'Accept': 'application/json'
     }
   } 
+  if (statusCakeId)
+    options.form.TestID = statusCakeId;
+
   console.log(options);
 
   return requestPromise(options)
@@ -86,10 +89,11 @@ function confirmEndpointIsStillMonitored(recordedEndpoint){
         body.WebsiteName === recordedEndpoint.stackName &&
         body.WebsiteURL === recordedEndpoint.endpoint &&
         body.ContactGroup === recordedEndpoint.contactGroupName &&
-        body.ContactID === recordedEndpoint.contactGroupId; 
+        body.ContactID === recordedEndpoint.contactGroupId && 
+        body.TestTags == recordedEndpoint.tags; 
       return Promise.resolve(response);
     })
     .catch(err => Promise.reject(err));
 }
 
-module.exports = {create, getContactGroupId, confirmEndpointIsStillMonitored};
+module.exports = {createOrUpdate, getContactGroupId, confirmEndpointIsStillMonitored};
