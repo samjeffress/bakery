@@ -1,0 +1,13 @@
+repositoryName: bakery
+
+apps:
+  bakery:
+    type: serverless
+ 
+settings:
+  kaos:
+    STATUS_CAKE_API_KEY: dunno
+    STATUS_CAKE_USER: s.jeffress@nib.com.au
+  prod:
+    STATUS_CAKE_API_KEY: dunno-either
+    STATUS_CAKE_USER: s.jeffress@nib.com.au

@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'sceptre', git: 'git@git.nib.com.au:redqueen/sceptre.git'
+gem 'sceptre-app',  git: 'git@git.nib.com.au:nib-au/steve.git', branch: 'serverless-hacks'
+gem 'sceptre-dotnet', git: 'git@git.nib.com.au:nib-au/sceptre-dotnet.git'
+gem 'sceptre-map', git: 'git@git.nib.com.au:nib-au/sceptre-map.git'
